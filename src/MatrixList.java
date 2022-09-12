@@ -29,6 +29,14 @@ public class MatrixList<T> implements Cloneable,Serializable {
 
     }
 
+    public int getVerticalSize() {
+        return verticalSize;
+    }
+
+    public int getHorizontalSize() {
+        return horizontalSize;
+    }
+
     public void addRow(T value){// add a row with given value
         for (int i = 0; i < verticalSize; i++) {
             getColumn(i).add(value);
