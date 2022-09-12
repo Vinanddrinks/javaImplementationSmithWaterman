@@ -1,41 +1,51 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.InvalidPathException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DNAFile {
     //Attributes
-    private File dnaFile = null;
-    //method pour read et pour write
+    private final File dnaFile;
+    private final ArrayList<String> genes;
 
     //Constructors
-    DNAFile(String path) throws InvalidPathException{
+    DNAFile(String path) throws InvalidPathException,IOException {
         dnaFile = new File(path);
         if (!dnaFile.isFile()){
-            System.out.println("Please enter the path of the DNA_data file.");
+            throw new IOException("this is not a file");
         }
+        genes = readGenes();
+        
     }
     //Main test
     public static void main(String[] args){
         try {
-            DNAFile myFile = new DNAFile("C:\\users\\marin\\IdeaProjects\\javaImplementationSmithWaterman\\data/DNA_data.txt");
-            myFile.readFile();
+            new DNAFile("data/DNA_data.txt");
         }catch(FileNotFoundException ex){
             System.out.println("File not found at specified path.");
+        }catch(IOException exception){
+            System.out.println("this is not a text file");
         }
 
     }
 
-    //Methods
-    public void readFile() throws FileNotFoundException{
-        Scanner input = new Scanner(dnaFile);
-        System.out.println("I have accessed the file.");//TRUC POUR TENTER
-
-        input.close();
+    // Read Methods
+    private ArrayList<String> readGenes() throws FileNotFoundException{
+        Scanner reader = new Scanner(dnaFile);
+        ArrayList<String> result = new ArrayList<>();
+        boolean trigger = false;
+        while(reader.hasNext()){
+            if(reader.nextLine().charAt(0) == '<')trigger = true;
+            if(trigger){
+                result.add(reader.nextLine());
+                trigger = false;
+            }
+        }
+        return result;
     }
-
-    public void writeFile(File dnaFile){
-        //
+    public ArrayList<String> getGenes() {
+        return genes;
     }
-
 }
