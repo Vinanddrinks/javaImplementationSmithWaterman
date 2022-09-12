@@ -1,9 +1,9 @@
 public class SmithWaterman {
     //data attributes
-    private SmithWaterman instance = null;
+    private static SmithWaterman instance = null;
     private final MatrixList<Integer> matrixList;
 
-    private String genes1,genes2;
+    private String genes1 = "",genes2 = "";
 
     //resolved attributes;
 
@@ -15,7 +15,7 @@ public class SmithWaterman {
         matrixList = new MatrixList<>(11,11,0);
     }
 
-    public SmithWaterman getInstance() {
+    public static SmithWaterman getInstance() {
         if (instance == null) {
             instance = new SmithWaterman();
         }
@@ -23,11 +23,14 @@ public class SmithWaterman {
     }
 
     public void setGenes1(String genes1) {
-        this.genes1 = genes1;
+        StringBuilder worker = new StringBuilder(this.genes1);
+        this.genes1 = worker.append(genes1).toString();
     }
 
     public void setGenes2(String genes2) {
-        this.genes2 = genes2;
+        StringBuilder worker = new StringBuilder(this.genes2);
+        this.genes2 = worker.append(genes2).toString();
+
     }
     public void computeCell(int vertical,int horizontal) throws NullPointerException{
         int left = matrixList.getValue(vertical,horizontal-1) -2;
@@ -36,7 +39,7 @@ public class SmithWaterman {
         if(genes1.charAt(vertical-1)==genes2.charAt(horizontal-1))diagonal++;
         else diagonal--;
         diagonal = Integer.max(left,Integer.max(up,diagonal));
-        if(diagonal <0)up = 0;
+        if(diagonal <0)diagonal = 0;
         matrixList.setValue(vertical,horizontal,diagonal);
     }
 
@@ -55,7 +58,7 @@ public class SmithWaterman {
     public void setLocalAlignedSequence(){
 
         localAlignedSequence = "";
-        int i = maxCoordinates[0],j = maxCoordinates[2];
+        int i = maxCoordinates[0]-1,j = maxCoordinates[1]-1;
         while (matrixList.getValue(i,j) != 0){
             localAlignedSequence += genes1.charAt(i);
             i--;
@@ -75,4 +78,18 @@ public class SmithWaterman {
 
     }
 
+    //getters
+
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public int[] getMaxCoordinates() {
+        return maxCoordinates;
+    }
+
+    public String getLocalAlignedSequence() {
+        return localAlignedSequence;
+    }
 }

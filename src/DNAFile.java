@@ -19,7 +19,9 @@ public class DNAFile {
         genes = readGenes();
         
     }
+
     //Main test
+    /*
     public static void main(String[] args){
         try {
            DNAFile hello = new DNAFile("data/DNA_data.txt");
@@ -31,9 +33,9 @@ public class DNAFile {
         }catch(IOException exception){
             System.out.println("this is not a text file");
         }
-
-
     }
+    */
+
     // Read Methods
     private ArrayList<String> readGenes() throws FileNotFoundException{
         Scanner reader = new Scanner(file);
@@ -44,6 +46,7 @@ public class DNAFile {
                 result.add(reader.nextLine());
             }
         }
+        reader.close();
         return result;
     }
     public ArrayList<String> getGenes() {
@@ -52,5 +55,17 @@ public class DNAFile {
 
     public File getFile() {
         return file;
+    }
+
+    @Override
+    public String toString(){
+        int i = 1;
+        StringBuilder result = new StringBuilder();
+        for (String current:
+             this.genes) {
+            result.append(i).append(".(").append(current).append(")\n\n");
+            i++;
+        }
+        return result.toString();
     }
 }
