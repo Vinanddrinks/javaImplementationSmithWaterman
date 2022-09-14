@@ -75,7 +75,6 @@ public class SmithWaterman {
         }
         setMaxScore();
         setLocalAlignedSequence();
-
     }
 
     //getters
@@ -91,5 +90,23 @@ public class SmithWaterman {
 
     public String getLocalAlignedSequence() {
         return localAlignedSequence;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder result = new StringBuilder();
+        result.append("S |   ");
+        for (int h = 1; h <= genes1.length();h++){
+            result.append(genes1.charAt(h-1)).append(" ");
+        }
+        result.append("\n  | ").append("0 ".repeat(Math.max(0, matrixList.getHorizontalSize()))).append("\n");
+        for (int i = 1; i < matrixList.getHorizontalSize(); i++) {
+            result.append(genes2.charAt(i-1)).append(" | 0");
+            for (int j = 1; j < matrixList.getVerticalSize(); j++) {
+                result.append(" ").append(matrixList.getValue(j,i));
+                if (j==matrixList.getVerticalSize()-1) result.append("\n");
+            }
+        }
+        return result.toString();
     }
 }

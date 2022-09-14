@@ -48,11 +48,14 @@ public class Main {
             }
         }while(check);
 
+
         SmithWaterman.getInstance().resolveSmithWaterman();
-        System.out.println(SmithWaterman.getInstance().getLocalAlignedSequence());
-        System.out.println(SmithWaterman.getInstance().getMaxScore());
-        System.out.println(SmithWaterman.getInstance().getMaxCoordinates()[0]);
-        System.out.println(SmithWaterman.getInstance().getMaxCoordinates()[1]);
+        System.out.println("\nHere is the result of the Smith-Waterman algorithm: \n");
+        System.out.println(SmithWaterman.getInstance().toString());
+        System.out.println("Here is the aligned sequence: " + SmithWaterman.getInstance().getLocalAlignedSequence() + ".");
+        System.out.println("The max score is " + SmithWaterman.getInstance().getMaxScore() + ".");
+        System.out.println("The coordinates of the max score are [" + SmithWaterman.getInstance().getMaxCoordinates()[0] + "," + SmithWaterman.getInstance().getMaxCoordinates()[1] + "].");
+        // /!\Coordinates prennent pas en compte la ligne/colonne de 0 faudra faire un +1 ?
         input.close();
         }
 
