@@ -3,10 +3,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Main
+ *  Authors Vincent Labouret 40259595, Marine Milosavljevic 40259616
+ *  This class is the main class of our project.
+ *  It contains the script that allows the user to choose a file from which to get the genes to resolve the Smith-Waterman algorithm
  */
 public class Main {
-    private static ArrayList<String> arrayGenes = new ArrayList<>();
-    private static Scanner input = new Scanner(System.in);
+    //Attributes
+    private static ArrayList<String> arrayGenes = new ArrayList<>(); //ArrayList of Strings to display the possible genes from the file
+    private static Scanner input = new Scanner(System.in); //Scanner declared for user inputs
+
     public static void main(String[] args) {
         boolean check = false;
         do {
@@ -42,7 +47,7 @@ public class Main {
                     SmithWaterman.getInstance().setGenes2(arrayGenes.get(Integer.parseInt(temp1) - 1));
                     check = false;
                 } catch (Exception ex) {
-                    System.out.println("Invalid number or format.(press enter to continue)");
+                    System.out.println("Invalid number or format.(Press enter to continue.)");
                     input.nextLine();
                 }
             }
@@ -54,12 +59,11 @@ public class Main {
         System.out.println(SmithWaterman.getInstance().toString());
         System.out.println("Here is the aligned sequence: " + SmithWaterman.getInstance().getLocalAlignedSequence() + ".");
         System.out.println("The max score is " + SmithWaterman.getInstance().getMaxScore() + ".");
-        System.out.println("The coordinates of the max score are [" + SmithWaterman.getInstance().getMaxCoordinates()[0] + "," + SmithWaterman.getInstance().getMaxCoordinates()[1] + "].");
-        // /!\Coordinates prennent pas en compte la ligne/colonne de 0 faudra faire un +1 ?
+        System.out.println("The coordinates of the max score are [" + (SmithWaterman.getInstance().getMaxCoordinates()[0]+1) + "," + (SmithWaterman.getInstance().getMaxCoordinates()[1]+1) + "].");
         input.close();
         }
 
-    private static String displayList(ArrayList<String> list){
+    private static String displayList(ArrayList<String> list){ //Displays all the genes the user can choose from for better readability
         int i = 1;
         StringBuilder result = new StringBuilder();
         for (String current:
