@@ -62,9 +62,9 @@ public class SmithWaterman {
 
     public void setLocalAlignedSequence(){ //Sets the Aligned Sequence from the max score up as long as the score isn't 0
         localAlignedSequence = "";
-        int i = maxCoordinates[0]-1,j = maxCoordinates[1]-1;
+        int i = maxCoordinates[0],j = maxCoordinates[1];
         while (matrixList.getValue(i,j) != 0){
-            localAlignedSequence += genes1.charAt(i);
+            localAlignedSequence += genes1.charAt(i-1);
             i--;
             j--;
         }
